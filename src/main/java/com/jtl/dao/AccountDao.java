@@ -3,6 +3,7 @@ package com.jtl.dao;
 import com.jtl.domain.Account;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @date 2019/12/17 14:24:20
  * @description 账户dao接口
  */
+@Repository //交给IOC容器
 public interface AccountDao {
     /**
      * 查询所有账户
