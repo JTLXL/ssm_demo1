@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -28,5 +31,32 @@ public class AccountController {
         List<Account> list = as.findAll();
         model.addAttribute("list", list);
         return "list";
+    }
+
+    /*@RequestMapping("/saveAccount")
+    public String save(Account account) {
+        as.saveAccount(account);
+        return "redirect:findAll";
+    }*/
+
+    /*@RequestMapping("/saveAccount")
+    public void save(Account account, HttpServletResponse response) throws Exception {
+        as.saveAccount(account);
+        response.sendRedirect("findAll");
+        return;
+    }*/
+
+    /**
+     * 这种方式最复杂，但是耦合度最低，因为没有用到相对路径，前面两种方式也可以但是用了相对路径
+     * @param account
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/saveAccount")
+    public void save(Account account, HttpServletRequest request,HttpServletResponse response) throws Exception {
+        as.saveAccount(account);
+        response.sendRedirect(request.getContextPath()+"/account/findAll");
+        return;
     }
 }
